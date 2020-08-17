@@ -1,9 +1,10 @@
 {
-  "name": "lab2_babel_modern_js_syntax",
+  "name": "Lab2_babel_modern_js_syntax",
   "version": "1.0.0",
-  "description": "babel with modern javascript conversion",
+  "description": "",
   "main": "index.js",
   "scripts": {
+    "build":"babel src -d out",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
