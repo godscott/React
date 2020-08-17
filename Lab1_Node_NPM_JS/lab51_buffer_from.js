@@ -1,4 +1,4 @@
-//Bufer編碼方式
+//Buffer編碼方式
 const string1 = "Hello"
 var buffer0 = new Buffer.from(string1)
 var buffer1 = new Buffer.from(string1, "ascii")
