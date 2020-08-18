@@ -8,6 +8,7 @@ import Pet from './components/Pet';
 import Counter from './components/Counter';
 import Banner from './components/Banner';
 import "./components/Person.css"
+import Radium from 'radium'
 
 class App extends Component {
   //改title
@@ -75,7 +76,8 @@ class App extends Component {
       font: "inherit",
       border: "2px solid red",
       padding: "4px",
-      cursor: 'pointer'
+      cursor: 'pointer',
+      ":hover":{backgroundColor:'lightblue',color:'black'}
     }
 
     // let persons = null;
@@ -137,8 +139,8 @@ class App extends Component {
         {
           // <button onClick={this.changeNameHandler.bind(this, "One Punch Man")}>Change</button>
         }
-        <button style={style} onClick={() => this.toggleDisplayHandler()}>show hide persons</button>
-        <button style={style} onClick={() => this.changeNameHandler("One Punch Man")}>Change</button>
+        <button key="btn1" style={style} onClick={() => this.toggleDisplayHandler()}>show hide persons</button>
+        <button key="btn2" style={style} onClick={() => this.changeNameHandler("One Punch Man")}>Change</button>
         {persons}
         {
           // this.state.showPersons === true ?
@@ -208,4 +210,4 @@ class App extends Component {
 //   );
 // }
 
-export default App;
+export default Radium(App);
