@@ -109,10 +109,18 @@ class App extends Component {
       style.color = 'black'
     }
 
+    //let classes = ['blue', 'bold'].join(' ')
+    const classes = []
+    if(this.state.persons.length <= 2){
+      classes.push('blue')
+    }
+    if(this.state.persons.length <= 1) {
+      classes.push('bold')
+    }
     return (
       <div className="App">
         <Counter step="2" />
-        <h1>{this.state.title}</h1>
+        <h1 className={classes.join(' ')}>{this.state.title}</h1>
         <Banner clickCallback = {this.titleChangeListener} name={this.state.title} />
         {
           // comment inside JSX
