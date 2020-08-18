@@ -52,7 +52,6 @@ const Person = props => {
             <button onClick={showStatusHandler}>Show!</button>
             <h1>{stateString.publisher}</h1>
             <p onClick={props.clickCallback}>I am {props.name}</p>
-            <p>I am {props.name}</p>
             <p>I am {props.age} years old,</p>
             <p>I am the {Math.floor(Math.random() * 5)}th generation</p>
             <p style={{color:"red"}}>My job function is {props.children}</p>
