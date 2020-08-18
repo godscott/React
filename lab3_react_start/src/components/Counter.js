@@ -18,10 +18,17 @@ export default class Counter extends Component {
         //     console.log(`callback value = ${this.state.count}`)
         // }) //解決畫面顯示數字與button clicked數字不一致的問題
         // 3 use setState
-        this.setState((prevState, props) => 
-        ({ count: prevState.count + parseInt(props.step) }), () => {
+        this.setState((prevState, props) => ({
+           count: prevState.count + parseInt(props.step) }
+        ), () => {
             console.log(`callback value = ${this.state.count}`)
         })
+
+        // this.setState((prevState, props) => {
+        //     return { count: prevState.count + parseInt(props.step) }
+        // }, () => {
+        //     console.log(`callback value = ${this.state.count}`)
+        // })
         console.log(`button clicked ${this.state.count} times`)
     }
 
