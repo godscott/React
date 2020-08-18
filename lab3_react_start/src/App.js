@@ -4,6 +4,7 @@ import './App.css';
 import Dashboard1 from './components/Dashboard1';
 import Dashboard2 from './components/Dashboard2';
 import Person from './components/Person';
+import Pet from './components/Pet';
 
 function App() {
   return ( //回傳只能有一個物件，如只有一個root的概念
@@ -38,9 +39,14 @@ function App() {
 
     <div className="App">
       <Dashboard1/>
-      <Person />
       <Dashboard2/>
-      <Person />
+      <Person name="Mark" age="43"/>
+      <Pet name="king" species="cat" />
+      <Person name="James" age="38">Team Leader</Person> 
+      <Person name="Tim" age="33"/>
+      <Person name="Mary" age="28"/>
+      <Person name="Abby" age="34"/>
+      <Pet />
     </div>
   );
 }
