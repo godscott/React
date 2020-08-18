@@ -47,7 +47,7 @@ const Person = props => {
         console.log(stateString)
     }
     return (
-        <div>
+        <div className="Person">
             <button onClick={switchVenderHandler}>Change!</button>
             <button onClick={showStatusHandler}>Show!</button>
             <h1>{stateString.publisher}</h1>

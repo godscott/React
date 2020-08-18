@@ -7,6 +7,7 @@ import Person from './components/Person';
 import Pet from './components/Pet';
 import Counter from './components/Counter';
 import Banner from './components/Banner';
+import "./components/Person.css"
 
 class App extends Component {
   //改title
@@ -53,6 +54,14 @@ class App extends Component {
   }
 
   render() {
+    const style = {
+      background: "yellow",
+      font: "inherit",
+      border: "2px solid red",
+      padding: "4px",
+      cursor: 'pointer'
+    }
+
     return (
       <div className="App">
         <Counter step="2" />
@@ -73,7 +82,7 @@ class App extends Component {
         {
           // <button onClick={this.changeNameHandler.bind(this, "One Punch Man")}>Change</button>
         }
-        <button onClick={() => this.changeNameHandler.bind(this, "One Punch Man")}>Change</button>
+        <button style={style} onClick={() => this.changeNameHandler("One Punch Man")}>Change</button>
         <Person
           clickCallback={this.changeNameHandler.bind(this,"Peter Pan")}
           name={this.state.persons[0].name}
