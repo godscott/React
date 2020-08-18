@@ -23,7 +23,8 @@ class App extends Component {
       { name: "abby", age: 34 },
       { name: "Kevin", age: 50 }
     ],
-    title:"Hello React chtti302"
+    title:"Hello React chtti302",
+    showPersons: false
   }
 
   // changeNameHandler = () => {
@@ -53,6 +54,13 @@ class App extends Component {
     })
   }
 
+  //開關內文，切記勿直接使用this.state.showPersons，要用this.setState的方式
+  toggleDisplayHandler = () => {
+      this.setState({showPersons: !this.state.showPersons}, () => {
+        console.log(`current status = ${this.state.showPersons}`)
+      })
+  }
+
   render() {
     const style = {
       background: "yellow",
@@ -60,6 +68,32 @@ class App extends Component {
       border: "2px solid red",
       padding: "4px",
       cursor: 'pointer'
+    }
+
+    // let persons = null;
+    // if( this.state.showPersons===true ) {
+    //   persons = (<div>
+    //     <Person
+    //       clickCallback={this.changeNameHandler.bind(this,"Peter Pan")}
+    //       name={this.state.persons[0].name}
+    //       age={this.state.persons[0].age} />
+    //     <Pet name="king" species="cat" />
+    //     <Person name={this.state.persons[1].name} age={this.state.persons[1].age} />
+    //     <Person name={this.state.persons[2].name} age={this.state.persons[2].age} >Team Leader</Person>
+    //     <Person name={this.state.persons[3].name} age={this.state.persons[3].age} />
+    //     <Person name={this.state.persons[4].name} age={this.state.persons[4].age} />
+    //     <Person name={this.state.persons[5].name} age={this.state.persons[5].age} />
+    //     <Pet />
+    //   </div>)
+    // }
+
+    let persons = null;
+    if (this.state.showPersons === true) {
+      persons = (<div>{
+        this.state.persons.map(person => {
+          return <Person name={person.name} age={person.age} />
+        })
+      }</div>)
     }
 
     return (
@@ -82,18 +116,26 @@ class App extends Component {
         {
           // <button onClick={this.changeNameHandler.bind(this, "One Punch Man")}>Change</button>
         }
+        <button style={style} onClick={() => this.toggleDisplayHandler()}>show hide persons</button>
         <button style={style} onClick={() => this.changeNameHandler("One Punch Man")}>Change</button>
-        <Person
-          clickCallback={this.changeNameHandler.bind(this,"Peter Pan")}
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age} />
-        <Pet name="king" species="cat" />
-        <Person name={this.state.persons[1].name} age={this.state.persons[1].age} />
-        <Person name={this.state.persons[2].name} age={this.state.persons[2].age} >Team Leader</Person>
-        <Person name={this.state.persons[3].name} age={this.state.persons[3].age} />
-        <Person name={this.state.persons[4].name} age={this.state.persons[4].age} />
-        <Person name={this.state.persons[5].name} age={this.state.persons[5].age} />
-        <Pet />
+        {persons}
+        {
+          // this.state.showPersons === true ?
+          // <div>
+          //   <Person
+          //     clickCallback={this.changeNameHandler.bind(this,"Peter Pan")}
+          //     name={this.state.persons[0].name}
+          //     age={this.state.persons[0].age} />
+          //   <Pet name="king" species="cat" />
+          //   <Person name={this.state.persons[1].name} age={this.state.persons[1].age} />
+          //   <Person name={this.state.persons[2].name} age={this.state.persons[2].age} >Team Leader</Person>
+          //   <Person name={this.state.persons[3].name} age={this.state.persons[3].age} />
+          //   <Person name={this.state.persons[4].name} age={this.state.persons[4].age} />
+          //   <Person name={this.state.persons[5].name} age={this.state.persons[5].age} />
+          //   <Pet />
+          // </div>
+          // :null
+        }
       </div>
     );
   }
