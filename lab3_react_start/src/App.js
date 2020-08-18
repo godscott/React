@@ -5,6 +5,7 @@ import Dashboard1 from './components/Dashboard1';
 import Dashboard2 from './components/Dashboard2';
 import Person from './components/Person';
 import Pet from './components/Pet';
+import Counter from './components/Counter';
 
 function App() {
   return ( //回傳只能有一個物件，如只有一個root的概念
@@ -38,6 +39,7 @@ function App() {
     //     React.createElement('h3', null, '2020-Aug-18')) //新增多個元件的方式
 
     <div className="App">
+      <Counter step="2"/>
       <Dashboard1/>
       <Dashboard2/>
       <Person name="Mark" age="43"/>
