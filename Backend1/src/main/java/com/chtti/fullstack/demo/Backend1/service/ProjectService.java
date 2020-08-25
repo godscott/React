@@ -28,4 +28,12 @@ public class ProjectService {
     public Iterable<Project> findAllProjects() {
         return repository.findAll();
     }
+
+    public Project findProjectByIdentifier(String projectId) {
+        Project project = repository.findByProjectIdentifier(projectId.toUpperCase());
+        if (project==null){
+            throw new ProjectIdException("Project ID："+projectId+" does not exist");
+        }
+        return project;
+    }
 }
