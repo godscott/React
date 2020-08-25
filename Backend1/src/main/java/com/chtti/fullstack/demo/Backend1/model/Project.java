@@ -49,5 +49,7 @@ public class Project {
         this.projectIdentifier = projectIdentifier;
     }
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
+    private Backlog backlog;
 
 }

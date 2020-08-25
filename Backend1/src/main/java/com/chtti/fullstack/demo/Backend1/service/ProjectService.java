@@ -1,7 +1,9 @@
 package com.chtti.fullstack.demo.Backend1.service;
 
 import com.chtti.fullstack.demo.Backend1.exception.ProjectIdException;
+import com.chtti.fullstack.demo.Backend1.model.Backlog;
 import com.chtti.fullstack.demo.Backend1.model.Project;
+import com.chtti.fullstack.demo.Backend1.repository.BacklogRepository;
 import com.chtti.fullstack.demo.Backend1.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,12 +13,24 @@ public class ProjectService {
 
     @Autowired
     private ProjectRepository repository;
+    @Autowired
+    private BacklogRepository backlogRepository;
 
     public Project saveOrUpdateProject(Project project) {
 
         String upperCaseProjectId = project.getProjectIdentifier().toUpperCase();
         //擷取存入DB例外事件
         try {
+            if(project.getId()==null) { //new project
+                Backlog backlog = new Backlog();
+                project.setBacklog(backlog);
+                backlog.setProject(project);
+                backlog.setProjectIdentifier(upperCaseProjectId);
+            }
+            else { //existed project
+                project.setBacklog(backlogRepository.findByProjectIdentifier(upperCaseProjectId));
+            }
+
             project.setProjectIdentifier(upperCaseProjectId);
             return repository.save(project);
         }
