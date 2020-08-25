@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import java.util.Map;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/project")
 public class ProjectController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProjectController.class.getSimpleName());
