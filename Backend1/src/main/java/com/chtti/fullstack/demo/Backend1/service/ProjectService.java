@@ -24,4 +24,8 @@ public class ProjectService {
             throw new ProjectIdException((String.format("Project ID %s already exists", upperCaseProjectId)));
         }
     }
+
+    public Iterable<Project> findAllProjects() {
+        return repository.findAll();
+    }
 }
