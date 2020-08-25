@@ -1,5 +1,6 @@
 package com.chtti.fullstack.demo.Backend1.service;
 
+import com.chtti.fullstack.demo.Backend1.exception.ProjectIdException;
 import com.chtti.fullstack.demo.Backend1.model.Project;
 import com.chtti.fullstack.demo.Backend1.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,15 @@ public class ProjectService {
     private ProjectRepository repository;
 
     public Project saveOrUpdateProject(Project project) {
-        return repository.save(project);
+
+        String upperCaseProjectId = project.getProjectIdentifier().toUpperCase();
+        //擷取存入DB例外事件
+        try {
+            project.setProjectIdentifier(upperCaseProjectId);
+            return repository.save(project);
+        }
+        catch (Exception e) {
+            throw new ProjectIdException((String.format("Project ID %s already exists", upperCaseProjectId)));
+        }
     }
 }
