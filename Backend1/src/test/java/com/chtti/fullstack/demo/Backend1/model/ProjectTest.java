@@ -1,7 +1,6 @@
-package com.chtti.fullstack.demo.Backend1;
+package com.chtti.fullstack.demo.Backend1.model;
 
 
-import com.chtti.fullstack.demo.Backend1.model.Project;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
