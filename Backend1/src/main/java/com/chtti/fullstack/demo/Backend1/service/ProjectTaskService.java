@@ -1,9 +1,12 @@
 package com.chtti.fullstack.demo.Backend1.service;
 
 import com.chtti.fullstack.demo.Backend1.exception.ProjectIdException;
+import com.chtti.fullstack.demo.Backend1.exception.ProjectIdIncorrectException;
 import com.chtti.fullstack.demo.Backend1.model.Backlog;
+import com.chtti.fullstack.demo.Backend1.model.Project;
 import com.chtti.fullstack.demo.Backend1.model.ProjectTask;
 import com.chtti.fullstack.demo.Backend1.repository.BacklogRepository;
+import com.chtti.fullstack.demo.Backend1.repository.ProjectRepository;
 import com.chtti.fullstack.demo.Backend1.repository.ProjectTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,9 @@ public class ProjectTaskService {
 
     @Autowired
     private ProjectTaskRepository projectTaskRepository;
+
+    @Autowired
+    private ProjectRepository projectRepository;
 
     public enum Priority {
         NOT_SET(0),
@@ -66,6 +72,12 @@ public class ProjectTaskService {
     }
 
     public Iterable<ProjectTask> findTaskById(String backlog_id) {
+        Project project = projectRepository.findByProjectIdentifier(backlog_id);
+        if(project==null) {
+            String message = String.format("project id:%s does not exist!", backlog_id);
+            throw new ProjectIdIncorrectException(message);
+        }
+
         return projectTaskRepository.findByProjectIdentifierOrderByPriority(backlog_id);
     }
 }
