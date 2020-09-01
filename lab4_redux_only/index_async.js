@@ -61,22 +61,23 @@ const reducer = (state = initState, action) => {
 }
 
 const GET_URL = "http://localhost:8080/api/project/all"
+const GET_URL_EXCEPTION = "http://localhost:8080/api/project/BOOT_REACT1X"
 //async action
 const fetchProjects = () => {
     return function(dispatch) {
         dispatch(fetchProjectRequest())
-        // axios.get(GET_URL)
-        // .then(response => {
-        //     // console.log(response.data)
-        //     const projects = response.data.map(project => project.website)
-        //     dispatch(fetchProjectSuccess(response.data))
-        // })
-        // .catch(error => {
-        //     // console.log(error)
-        //     dispatch(fetchProjectFailure(error))
-        // })
-
         axios.get(GET_URL)
+        .then(response => {
+            // console.log(response.data)
+            const projects = response.data.map(project => project.website)
+            dispatch(fetchProjectSuccess(response.data))
+        })
+        .catch(error => {
+            // console.log(error)
+            dispatch(fetchProjectFailure(error))
+        })
+
+        axios.get(GET_URL_EXCEPTION)
             .then(response => {
                 const projects = response.data.map(project=>project.projectIdentifier)
                 dispatch(fetchProjectSuccess(projects))
