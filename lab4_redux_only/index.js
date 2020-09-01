@@ -2,6 +2,9 @@
 const redux = require('redux')
 const createStore = redux.createStore
 const combineReducers = redux.combineReducers
+const applyMiddleware = redux.applyMiddleware
+const reduxLogger = require('redux-logger')
+const logger = reduxLogger.createLogger()
 
 console.log("vending machine lab for redux!") 
 
@@ -60,10 +63,10 @@ const rootReducer = combineReducers ({
     coke:cokeReducer,
     fanta:fantaReducer
 })
-const store = createStore(rootReducer)
+const store = createStore(rootReducer, applyMiddleware(logger))
 console.log("initial state, coke=", store.getState()) // active get state by getState()
-unsubscribeDB = store.subscribe(() => { console.log('log something to db::', store.getState()) })
-unsubscribe1 = store.subscribe(() => { console.log('moniter change, state=', store.getState()) }) //訂閱偵測狀態
+// unsubscribeDB = store.subscribe(() => { console.log('log something to db::', store.getState()) })
+// unsubscribe1 = store.subscribe(() => { console.log('moniter change, state=', store.getState()) }) //訂閱偵測狀態
 console.log("David buy a coke:")
 store.dispatch(buyCoke())
 console.log("John buy 2 cokes, 2 fanta:")
@@ -71,9 +74,9 @@ store.dispatch(buyCoke())
 store.dispatch(buyCoke())
 store.dispatch(buyFanta())
 store.dispatch(buyFanta())
-unsubscribe1()
+// unsubscribe1()
 
-unsubscribe2 = store.subscribe(()=>{console.log('** change, state=',store.getState())})
+// unsubscribe2 = store.subscribe(()=>{console.log('** change, state=',store.getState())})
 console.log("Mary buy 3 cokes, 3 fanta:")
 store.dispatch(buyCoke())
 store.dispatch(buyCoke())
@@ -83,8 +86,8 @@ store.dispatch(buyFanta())
 store.dispatch(buyFanta())
 
 console.log(`curret in stock, coke=${store.getState().coke.numOfCokes}, fanta=${store.getState().fanta.numOfFantas} `)
-unsubscribe2()
-unsubscribeDB()
+// unsubscribe2()
+// unsubscribeDB()
 // perform something in store, return a new state
     
     
