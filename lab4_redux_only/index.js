@@ -1,21 +1,21 @@
 //販賣機Lab
 const redux = require('redux')
 const createStore = redux.createStore
+const combineReducers = redux.combineReducers
 
 console.log("vending machine lab for redux!") 
 
 // action ==> intension, the act will be performed
 const BUY_COKE = 'BUY_COKE'
 const BUY_FANTA = 'BUY_FANTA'
-
 const action1 = {
     type: BUY_COKE,
     info: 'my first redux action'
-} //object
-function buyCoke() { // action creater
+}
+// action creator
+function buyCoke() {
     return action1
 }
-
 const action2 = {
     type: BUY_FANTA,
     info: 'my second redux action'
@@ -23,20 +23,28 @@ const action2 = {
 function buyFanta() {
     return action2
 }
+// reducer ==> connect sotre & action, receive action, 
+const initialCokeState = {
+    numOfCokes: 100
 
-// reducer ==> connect sotre & action, receive action, perform something in store
-const initialState = {
-    numofCokes: 100,
-    numofFantas: 50
 }
 
-const reducer = (state = initialState, action) => {
+const cokeReducer = (state = initialCokeState, action) => {
     switch (action.type) {
         case BUY_COKE:
             return {
-                ...state, //其他商品的數量需回傳
-                numofCokes: state.numofCokes - 1
+                ...state,
+                numOfCokes: state.numOfCokes - 1
             }
+        default: // very important!!!
+            return state
+    }
+}
+const initialFantaState = {
+    numOfFantas: 50
+}
+const fantaReducer = (state = initialFantaState, action) => {
+    switch (action.type) {
         case BUY_FANTA:
             return {
                 ...state,
@@ -48,7 +56,11 @@ const reducer = (state = initialState, action) => {
 }
     
 // store ==> state management
-const store = createStore(reducer)
+const rootReducer = combineReducers ({
+    coke:cokeReducer,
+    fanta:fantaReducer
+})
+const store = createStore(rootReducer)
 console.log("initial state, coke=", store.getState()) // active get state by getState()
 unsubscribeDB = store.subscribe(() => { console.log('log something to db::', store.getState()) })
 unsubscribe1 = store.subscribe(() => { console.log('moniter change, state=', store.getState()) }) //訂閱偵測狀態
@@ -69,6 +81,8 @@ store.dispatch(buyCoke())
 store.dispatch(buyFanta())
 store.dispatch(buyFanta())
 store.dispatch(buyFanta())
+
+console.log(`curret in stock, coke=${store.getState().coke.numOfCokes}, fanta=${store.getState().fanta.numOfFantas} `)
 unsubscribe2()
 unsubscribeDB()
 // perform something in store, return a new state
